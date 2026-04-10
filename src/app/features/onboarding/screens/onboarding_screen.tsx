@@ -1,27 +1,33 @@
-import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  Pressable,
+  StyleSheet,
+  Text,
+} from "react-native";
 
+import AppAssets from "@/core/utils/app_assets";
+import AppColor from "@/core/utils/app_color";
+import AppRoutes from "@/core/utils/app_routes";
+import { IconlyBoldArrowLeft } from "@/core/utils/icons/arrow_left";
+import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import AppColor from "../../../../core/utils/app_color";
 const OnBoardingScreen = () => {
   return (
-    <ImageBackground
-      source={require("../../../../../assets/background.png")}
-      style={{ flex: 1 }}
-    >
+    <ImageBackground source={AppAssets.background} style={{ flex: 1 }}>
       <SafeAreaView style={styleSheet.continer}>
-        <Image
-          style={styleSheet.image}
-          source={require("../../../../../assets/on_boarding.png")}
-        />
+        <Image style={styleSheet.image} source={AppAssets.onBoarding} />
         <Text style={styleSheet.title}>Music Player App</Text>
         <Text style={styleSheet.description}>
-          “A sleek, modern music app that brings your favorite songs, artists,
+          “A sleek, modern music app that brings your favorite songs, ar tists,
           and playlists together
         </Text>
-        <View style={styleSheet.button}>
-          <Text style={styleSheet.btntxt}>Let’s Start</Text>
-          <Image source={require("../../../../../assets/Arrow_Left.png")} />
-        </View>
+        <Link href={AppRoutes.home}>
+          <Pressable style={styleSheet.button}>
+            <Text style={styleSheet.btntxt}>Let’s Start</Text>
+            <IconlyBoldArrowLeft />
+          </Pressable>
+        </Link>
       </SafeAreaView>
     </ImageBackground>
   );
