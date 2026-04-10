@@ -34,7 +34,6 @@ const styleSheet = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: AppColor.white,
   },
   image: {
     width: "100%",
