@@ -34,6 +34,21 @@
             "imageWidth": 76
           }
         }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/LexendDeca-Regular.ttf",
+            "./assets/fonts/LexendDeca-Bold.ttf",
+            "./assets/fonts/LexendDeca-ExtraBold.ttf",
+            "./assets/fonts/LexendDeca-ExtraLight.ttf",
+            "./assets/fonts/LexendDeca-Light.ttf",
+            "./assets/fonts/LexendDeca-Medium.ttf",
+            "./assets/fonts/LexendDeca-SemiBold.ttf",
+            "./assets/fonts/LexendDeca-Thin.ttf"
+          ]
+        }
       ]
     ],
     "experiments": {
