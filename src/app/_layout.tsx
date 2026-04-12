@@ -27,12 +27,12 @@ export default function RootLayout() {
   });
   return (
     <Stack
-      initialRouteName={AppRoutes.onBoarding}
+      initialRouteName={(AppRoutes.onBoarding as string).replace("/", "")}
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name={AppRoutes.onBoarding} />
-      <Stack.Screen name={AppRoutes.login} />
-      <Stack.Screen name={AppRoutes.home} />
+      <Stack.Screen name={(AppRoutes.onBoarding as string).replace("/", "")} />
+      <Stack.Screen name={(AppRoutes.login as string).replace("/", "")} />
+      <Stack.Screen name={(AppRoutes.home as string).replace("/", "")} />
     </Stack>
   );
 }

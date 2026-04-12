@@ -44,7 +44,7 @@ export default function LoginScreen() {
       <RedButtonWithArrow route={AppRoutes.home} />
       <Text style={styleSheet.signUpText}>
         Don't have an account?{" "}
-        <Link href={AppRoutes.signUp}>
+        <Link href={AppRoutes.signUp} asChild>
           <Text style={styleSheet.signUpText}>Sign Up</Text>
         </Link>
       </Text>
