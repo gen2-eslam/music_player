@@ -1,16 +1,10 @@
-import {
-  Image,
-  ImageBackground,
-  Pressable,
-  StyleSheet,
-  Text,
-} from "react-native";
+import { Image, ImageBackground, StyleSheet, Text } from "react-native";
 
+import { RedButtonWithArrow } from "@/core/common_componant/red_button_with_arrow";
 import AppAssets from "@/core/utils/app_assets";
 import AppColor from "@/core/utils/app_color";
+import AppFontsFamily from "@/core/utils/app_fonts";
 import AppRoutes from "@/core/utils/app_routes";
-import { IconlyBoldArrowLeft } from "@/core/utils/icons/arrow_left";
-import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 const OnBoardingScreen = () => {
   return (
@@ -22,12 +16,7 @@ const OnBoardingScreen = () => {
           “A sleek, modern music app that brings your favorite songs, ar tists,
           and playlists together
         </Text>
-        <Link href={AppRoutes.home}>
-          <Pressable style={styleSheet.button}>
-            <Text style={styleSheet.btntxt}>Let’s Start</Text>
-            <IconlyBoldArrowLeft />
-          </Pressable>
-        </Link>
+        <RedButtonWithArrow route={AppRoutes.login} />
       </SafeAreaView>
     </ImageBackground>
   );
@@ -49,29 +38,15 @@ const styleSheet = StyleSheet.create({
   title: {
     textAlign: "center",
     fontSize: 24,
-    fontWeight: "bold",
+    fontFamily: AppFontsFamily.semiBold,
     width: "70%",
   },
   description: {
     textAlign: "center",
     color: AppColor.lightGray,
     width: "70%",
+    fontSize: 14,
     marginTop: 10,
-  },
-  button: {
-    margin: 20,
-    flexDirection: "row",
-    backgroundColor: AppColor.red,
-    padding: 10,
-    borderRadius: 20,
-    alignSelf: "center",
-    width: "80%",
-  },
-  btntxt: {
-    flex: 1,
-    textAlign: "center",
-    fontSize: 16,
-    color: AppColor.white,
-    fontWeight: "bold",
+    fontFamily: AppFontsFamily.regular,
   },
 });
