@@ -4,9 +4,10 @@ import { RedButtonWithArrow } from "@/core/common_componant/red_button_with_arro
 import AppAssets from "@/core/utils/app_assets";
 import AppColor from "@/core/utils/app_color";
 import AppFontsFamily from "@/core/utils/app_fonts";
-import AppRoutes from "@/core/utils/app_routes";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useOnBoarding } from "../hooks/on_boarding_hooks";
 const OnBoardingScreen = () => {
+  const { setOnBoardingDone } = useOnBoarding();
   return (
     <ImageBackground source={AppAssets.background} style={{ flex: 1 }}>
       <SafeAreaView style={styleSheet.continer}>
@@ -16,7 +17,7 @@ const OnBoardingScreen = () => {
           “A sleek, modern music app that brings your favorite songs, ar tists,
           and playlists together
         </Text>
-        <RedButtonWithArrow route={AppRoutes.login} />
+        <RedButtonWithArrow onPress={setOnBoardingDone} />
       </SafeAreaView>
     </ImageBackground>
   );

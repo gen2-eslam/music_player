@@ -11,12 +11,22 @@ import { Link } from "expo-router";
 import { StyleSheet, Text } from "react-native";
 import { Divider } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useLogin } from "../hooks/login_hooks";
 
 export default function LoginScreen() {
+  const {
+    email,
+    password,
+    emailValidate,
+    passwordValidate,
+    setEmail,
+    setPassword,
+    login,
+  } = useLogin();
   return (
     <SafeAreaView style={styleSheet.container}>
       <Text style={styleSheet.title}>Welcome Back</Text>
-      <Text style={styleSheet.description}>Where Sound Comes Alive</Text>{" "}
+      <Text style={styleSheet.description}>Where Sound Comes Alive</Text>
       <Divider style={{ height: 20 }} />
       <CustomListTile
         title="Log In"
@@ -28,20 +38,25 @@ export default function LoginScreen() {
         title="Email"
         perfixIcon={<PersonIcon />}
         placeholder="Email Address"
-        value="fares"
-        onChangeText={() => {}}
-        error="fares"
+        value={email}
+        onChangeText={(text) => setEmail(text)}
+        error={emailValidate}
       />
       <CustomTextFormField
         title="Password"
         perfixIcon={<LockIcon />}
         placeholder="Password"
-        value="sssssssssssssssssssss"
+        value={password}
         isPassword={true}
-        onChangeText={() => {}}
+        onChangeText={(text) => setPassword(text)}
+        error={passwordValidate}
       />
       <Divider style={{ height: 20 }} />
-      <RedButtonWithArrow route={AppRoutes.home} />
+      <RedButtonWithArrow
+        onPress={() => {
+          login();
+        }}
+      />
       <Text style={styleSheet.signUpText}>
         Don't have an account?{" "}
         <Link href={AppRoutes.signUp} asChild>
