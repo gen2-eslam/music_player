@@ -1,17 +1,23 @@
-import axios from 'axios';
-
+import axios from "axios";
+import { EndPoint } from "./end_point";
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: EndPoint.BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
-const axiosGetData = async ({ url, params }: { url: string; params?: any }) => {
-  return await axiosInstance.get(url, { params });
+const axiosGetData = async <T>({
+  url,
+  params,
+}: {
+  url: string;
+  params?: any;
+}) => {
+  return await axiosInstance.get<T>(url, { params });
 };
 
-const axiosPostData = async ({
+const axiosPostData = async <T>({
   url,
   data,
   params,
@@ -20,10 +26,10 @@ const axiosPostData = async ({
   data?: any;
   params?: any;
 }) => {
-  return await axiosInstance.post(url, data, { params });
+  return await axiosInstance.post<T>(url, data, { params });
 };
 
-const axiosPutData = async ({
+const axiosPutData = async <T>({
   url,
   data,
   params,
@@ -32,23 +38,23 @@ const axiosPutData = async ({
   data?: any;
   params?: any;
 }) => {
-  return await axiosInstance.put(url, data, { params });
+  return await axiosInstance.put<T>(url, data, { params });
 };
 
-const axiosDeleteData = async ({
+const axiosDeleteData = async <T>({
   url,
   params,
 }: {
   url: string;
   params?: any;
 }) => {
-  return await axiosInstance.delete(url, { params });
+  return await axiosInstance.delete<T>(url, { params });
 };
 
 export {
-  axiosInstance,
+  axiosDeleteData,
   axiosGetData,
+  axiosInstance,
   axiosPostData,
   axiosPutData,
-  axiosDeleteData,
 };
