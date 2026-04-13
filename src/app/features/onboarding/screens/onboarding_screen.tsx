@@ -5,7 +5,7 @@ import AppAssets from "@/core/utils/app_assets";
 import AppColor from "@/core/utils/app_color";
 import AppFontsFamily from "@/core/utils/app_fonts";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useOnBoarding } from "../hooks/on_boarding_hooks";
+import useOnBoarding from "../hooks/on_boarding_hooks";
 const OnBoardingScreen = () => {
   const { setOnBoardingDone } = useOnBoarding();
   return (

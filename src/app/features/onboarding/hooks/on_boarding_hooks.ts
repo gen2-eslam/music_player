@@ -4,41 +4,46 @@ import AppRoutes from "@/core/utils/app_routes";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 
-export const useOnBoarding = () => {
+export default function useOnBoarding() {
   const router = useRouter();
   useEffect(() => {
-    async function checkUser() {
-      if (await isUserLoggedIn()) {
+    async function checkNavigation() {
+      const loggedIn = await isUserLoggedIn();
+      if (loggedIn) {
         router.replace(AppRoutes.home);
+        return;
       }
-    }
-    async function checkOnBoarding() {
-      if (await !isFirstTime()) {
+
+      const firstTime = await isFirstTime();
+      if (!firstTime) {
         router.replace(AppRoutes.login);
       }
     }
-    checkUser();
-    checkOnBoarding();
-  }, []);
+    checkNavigation();
+  }, [router]);
 
-  const setOnBoardingDone = () => {
-    AsyncStorageService.saveData(LocalDataKeys.onBoarding, "true");
-    router.push(AppRoutes.login);
+  const setOnBoardingDone = async () => {
+    await AsyncStorageService.saveData(LocalDataKeys.onBoarding, "true");
+    router.replace(AppRoutes.login);
   };
 
-  const getOnBoardingDone = () => {
-    return AsyncStorageService.getData(LocalDataKeys.onBoarding) ?? "false";
-  };
-  const isFirstTime = async () => {
-    return (await getOnBoardingDone()) === "false";
-  };
-  const isUserLoggedIn = async () => {
+  const getOnBoardingDone = async () => {
     return (
-      (await AsyncStorageService.getData(LocalDataKeys.accessToken)) !== null
+      (await AsyncStorageService.getData(LocalDataKeys.onBoarding)) ?? "false"
     );
+  };
+
+  const isFirstTime = async () => {
+    const status = await getOnBoardingDone();
+    return status === "false";
+  };
+
+  const isUserLoggedIn = async () => {
+    const token = await AsyncStorageService.getData(LocalDataKeys.accessToken);
+    return token !== null;
   };
 
   return {
     setOnBoardingDone,
   };
-};
+}

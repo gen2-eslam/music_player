@@ -19,27 +19,31 @@ export const useLogin = () => {
 
   const checkEmailValidate = () => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    let error = "";
     if (email.trim() === "") {
-      setEmailValidate("Email is required");
+      error = "Email is required";
     } else if (!emailRegex.test(email)) {
-      setEmailValidate("Email is invalid");
-    } else {
-      setEmailValidate("");
+      error = "Email is invalid";
     }
+    setEmailValidate(error);
+    return error;
   };
+
   const checkPasswordValidate = () => {
+    let error = "";
     if (password.trim() === "") {
-      setPasswordValidate("Password is required");
+      error = "Password is required";
     } else if (password.length < 6) {
-      setPasswordValidate("Password must be at least 6 characters");
-    } else {
-      setPasswordValidate("");
+      error = "Password must be at least 6 characters";
     }
+    setPasswordValidate(error);
+    return error;
   };
+
   const checkAllValidate = () => {
-    checkEmailValidate();
-    checkPasswordValidate();
-    return emailValidate === "" && passwordValidate === "";
+    const emailError = checkEmailValidate();
+    const passwordError = checkPasswordValidate();
+    return emailError === "" && passwordError === "";
   };
   const login = async () => {
     if (checkAllValidate()) {
