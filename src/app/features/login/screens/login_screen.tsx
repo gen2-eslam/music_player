@@ -8,8 +8,8 @@ import { LockIcon } from "@/core/utils/icons/lock_icon";
 import { PersonIcon } from "@/core/utils/icons/person_icon";
 import { Link } from "expo-router";
 
-import { StyleSheet, Text } from "react-native";
-import { Divider } from "react-native-paper";
+import { ActivityIndicator, StyleSheet, Text } from "react-native";
+import { Divider, Snackbar } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLogin } from "../hooks/login_hooks";
 
@@ -19,9 +19,12 @@ export default function LoginScreen() {
     password,
     emailValidate,
     passwordValidate,
+    error,
+    loading,
     setEmail,
     setPassword,
     login,
+    setError,
   } = useLogin();
   return (
     <SafeAreaView style={styleSheet.container}>
@@ -52,24 +55,44 @@ export default function LoginScreen() {
         error={passwordValidate}
       />
       <Divider style={{ height: 20 }} />
-      <RedButtonWithArrow
-        onPress={() => {
-          login();
-        }}
-      />
+      {loading ? (
+        <ActivityIndicator size="large" color={AppColor.red} />
+      ) : (
+        <RedButtonWithArrow onPress={login} />
+      )}
+
       <Text style={styleSheet.signUpText}>
         Don't have an account?{" "}
         <Link href={AppRoutes.signUp} asChild>
           <Text style={styleSheet.signUpText}>Sign Up</Text>
         </Link>
       </Text>
+
+      <Snackbar
+        visible={error.showError}
+        wrapperStyle={{
+          position: "absolute",
+          bottom: 10,
+          right: 0,
+          left: 0,
+        }}
+        action={{
+          label: "Close",
+          onPress: () => setError({ message: "", showError: false }),
+          icon: "close",
+        }}
+        onDismiss={() => setError({ message: "", showError: false })}
+        duration={2000}
+      >
+        <Text style={{ color: AppColor.white }}>{error.message}</Text>
+      </Snackbar>
     </SafeAreaView>
   );
 }
 
 const styleSheet = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     alignItems: "center",
   },
   title: {
