@@ -1,10 +1,10 @@
 import { AsyncStorageService } from "@/core/service/local_data_base/async_storage_service";
 import { LocalDataKeys } from "@/core/service/local_data_base/local_data_keys";
+import AppRoutes from "@/core/utils/app_routes";
+import { router } from "expo-router";
 import { useState } from "react";
 import { LoginRequest } from "../data/model/login_data_type";
 import { loginAxios } from "../data/remote_data/login_axios";
-import { router } from "expo-router";
-import AppRoutes from "@/core/utils/app_routes";
 
 export const useLogin = () => {
   const [email, setEmail] = useState("");
@@ -12,7 +12,10 @@ export const useLogin = () => {
   const [emailValidate, setEmailValidate] = useState("");
   const [passwordValidate, setPasswordValidate] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState({
+    message: "",
+    showError: false,
+  });
 
   const checkEmailValidate = () => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -36,10 +39,10 @@ export const useLogin = () => {
   const checkAllValidate = () => {
     checkEmailValidate();
     checkPasswordValidate();
+    return emailValidate === "" && passwordValidate === "";
   };
-  const login = () => {
-    checkAllValidate();
-    if (emailValidate === "" && passwordValidate === "") {
+  const login = async () => {
+    if (checkAllValidate()) {
       setLoading(true);
       const request: LoginRequest = {
         email: email,
@@ -59,7 +62,11 @@ export const useLogin = () => {
           router.push(AppRoutes.home);
         })
         .catch((error) => {
-          setError(error.response.data.message);
+          setError({
+            message: error.response.data["detail"],
+            showError: true,
+          });
+
           setLoading(false);
         });
     }
@@ -67,7 +74,7 @@ export const useLogin = () => {
 
   return {
     loading,
-
+    error,
     email,
     password,
     emailValidate,
@@ -77,5 +84,6 @@ export const useLogin = () => {
     checkEmailValidate,
     checkPasswordValidate,
     login,
+    setError,
   };
 };
