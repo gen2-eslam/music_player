@@ -11,32 +11,49 @@ import { Link } from "expo-router";
 import { ActivityIndicator, StyleSheet, Text } from "react-native";
 import { Divider, Snackbar } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useLogin } from "../hooks/login_hooks";
+import { useRegister } from "../hooks/register_hook";
 
-export default function LoginScreen() {
+export default function RegisterScreen() {
   const {
     email,
     password,
+    username,
     emailValidate,
     passwordValidate,
+    usernameValidate,
     error,
+    success,
     loading,
     setEmail,
     setPassword,
-    login,
+    setUsername,
+    register,
     setError,
-  } = useLogin();
+    setSuccess,
+    confirmPassword,
+    confirmPasswordValidate,
+    setConfirmPassword,
+  } = useRegister();
+
   return (
     <SafeAreaView style={styleSheet.container}>
       <Text style={styleSheet.title}>Welcome Back</Text>
       <Text style={styleSheet.description}>Where Sound Comes Alive</Text>
       <Divider style={{ height: 20 }} />
       <CustomListTile
-        title="Log In"
+        title="Register"
         description="Enter Your Credentials to continue"
       />
       <Divider style={styleSheet.divider} />
       <Divider style={{ height: 20 }} />
+      <CustomTextFormField
+        title="Username"
+        perfixIcon={<PersonIcon />}
+        placeholder="Username"
+        value={username}
+        onChangeText={(text) => setUsername(text)}
+        error={usernameValidate}
+      />
       <CustomTextFormField
         title="Email"
         perfixIcon={<PersonIcon />}
@@ -54,18 +71,26 @@ export default function LoginScreen() {
         onChangeText={(text) => setPassword(text)}
         error={passwordValidate}
       />
-  
+      <CustomTextFormField
+        title="Confirm Password"
+        perfixIcon={<LockIcon />}
+        placeholder="Confirm Password"
+        value={confirmPassword}
+        isPassword={true}
+        onChangeText={(text) => setConfirmPassword(text)}
+        error={confirmPasswordValidate}
+      />
       <Divider style={{ height: 20 }} />
       {loading ? (
         <ActivityIndicator size="large" color={AppColor.red} />
       ) : (
-        <RedButtonWithArrow onPress={login} />
+        <RedButtonWithArrow onPress={register} />
       )}
 
       <Text style={styleSheet.signUpText}>
-        Don't have an account?{" "}
-        <Link href={AppRoutes.register} asChild>
-          <Text style={styleSheet.signUpText}>Sign Up</Text>
+        Already have an account?{" "}
+        <Link href={AppRoutes.login} asChild>
+          <Text style={styleSheet.signUpText}>Login</Text>
         </Link>
       </Text>
 
@@ -79,13 +104,46 @@ export default function LoginScreen() {
         }}
         action={{
           label: "Close",
-          onPress: () => setError({ message: "", showError: false }),
+          onPress: () =>
+            setError({
+              emailError: "",
+              usernameError: "",
+              passwordError: "",
+              showError: false,
+            }),
           icon: "close",
         }}
-        onDismiss={() => setError({ message: "", showError: false })}
+        onDismiss={() =>
+          setError({
+            emailError: "",
+            usernameError: "",
+            passwordError: "",
+            showError: false,
+          })
+        }
         duration={2000}
       >
-        <Text style={{ color: AppColor.white }}>{error.message}</Text>
+        <Text style={{ color: AppColor.white }}>{error.emailError}</Text>
+        <Text style={{ color: AppColor.white }}>{error.usernameError}</Text>
+        <Text style={{ color: AppColor.white }}>{error.passwordError}</Text>
+      </Snackbar>
+      <Snackbar
+        visible={success.showSuccess}
+        wrapperStyle={{
+          position: "absolute",
+          bottom: 10,
+          right: 0,
+          left: 0,
+        }}
+        action={{
+          label: "Close",
+          onPress: () => setSuccess({ message: "", showSuccess: false }),
+          icon: "close",
+        }}
+        onDismiss={() => setSuccess({ message: "", showSuccess: false })}
+        duration={2000}
+      >
+        <Text style={{ color: AppColor.white }}>{success.message}</Text>
       </Snackbar>
     </SafeAreaView>
   );
