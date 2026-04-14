@@ -1,9 +1,9 @@
-export type LoginResponse = {
+export interface LoginResponse {
   access: string;
   refresh: string;
-};
+}
 
-export type LoginRequest = {
+export interface LoginRequest {
   email: string;
   password: string;
-};
+}
