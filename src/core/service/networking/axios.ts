@@ -1,11 +1,22 @@
 import axios from "axios";
 import { EndPoint } from "./end_point";
+import { refreshToken } from "./refresh_token";
 const axiosInstance = axios.create({
   baseURL: EndPoint.BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response?.status === 401) {
+      await refreshToken();
+    }
+    return Promise.reject(error);
+  },
+);
 
 const axiosGetData = async <T>({
   url,
