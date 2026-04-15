@@ -32,7 +32,9 @@ export default function RootLayout() {
     >
       <Stack.Screen name={(AppRoutes.onBoarding as string).replace("/", "")} />
       <Stack.Screen name={(AppRoutes.login as string).replace("/", "")} />
-      <Stack.Screen name={(AppRoutes.home as string).replace("/", "")} />
+      <Stack.Screen
+        name={(AppRoutes.drawerLayout as string).replace("/", "")}
+      />
     </Stack>
   );
 }

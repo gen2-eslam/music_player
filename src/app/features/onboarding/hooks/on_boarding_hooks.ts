@@ -10,7 +10,7 @@ export default function useOnBoarding() {
     async function checkNavigation() {
       const loggedIn = await isUserLoggedIn();
       if (loggedIn) {
-        router.replace(AppRoutes.home);
+        router.replace(AppRoutes.drawerLayout);
         return;
       }
 
