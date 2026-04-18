@@ -14,7 +14,11 @@ import AppFontsFamily from "../utils/app_fonts";
 export default function CustomDrawerContent(props: any) {
   const router = useRouter();
   return (
-    <View style={{ flex: 1 }}>
+    <View
+      style={{
+        flex: 1,
+      }}
+    >
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
