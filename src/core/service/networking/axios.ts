@@ -14,18 +14,20 @@ axiosInstance.interceptors.response.use(
     if (error.response?.status === 401) {
       await refreshToken();
     }
-    return Promise.reject(error);
+    // return Promise.reject(error);
   },
 );
 
 const axiosGetData = async <T>({
   url,
+  headers,
   params,
 }: {
   url: string;
+  headers?: any;
   params?: any;
 }) => {
-  return await axiosInstance.get<T>(url, { params });
+  return await axiosInstance.get<T>(url, { headers, params });
 };
 
 const axiosPostData = async <T>({
