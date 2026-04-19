@@ -3,9 +3,6 @@ import { EndPoint } from "./end_point";
 import { refreshToken } from "./refresh_token";
 const axiosInstance = axios.create({
   baseURL: EndPoint.BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 axiosInstance.interceptors.response.use(

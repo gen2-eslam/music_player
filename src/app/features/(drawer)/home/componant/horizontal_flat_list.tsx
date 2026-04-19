@@ -1,9 +1,12 @@
 import AppColor from "@/core/utils/app_color";
 import AppFontsFamily from "@/core/utils/app_fonts";
+import AppRoutes from "@/core/utils/app_routes";
+import { router } from "expo-router";
 import {
   Dimensions,
   FlatList,
   Image,
+  Pressable,
   StyleSheet,
   Text,
   View,
@@ -26,12 +29,22 @@ export const HorizontalFlatList = ({ data }: { data: AlbumModel[] }) => {
         </View>
       }
       renderItem={({ item }) => (
-        <View style={styles.item}>
+        <Pressable
+          style={styles.item}
+          onPress={() => {
+            router.navigate({
+              pathname: AppRoutes.playMusic as any,
+              params: {
+                StreamUrl: item.stream_url,
+              },
+            });
+          }}
+        >
           <Image source={{ uri: item.cover_url }} style={styles.image} />
           <Text style={styles.flatListTitle}>{item.title}</Text>
 
           <Text style={styles.flatListSubTitle}>{item.artist}</Text>
-        </View>
+        </Pressable>
       )}
     />
   );

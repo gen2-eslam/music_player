@@ -35,6 +35,7 @@ export default function RootLayout() {
       <Stack.Screen
         name={(AppRoutes.drawerLayout as string).replace("/", "")}
       />
+      <Stack.Screen name={(AppRoutes.playMusic as string).replace("/", "")} />
     </Stack>
   );
 }

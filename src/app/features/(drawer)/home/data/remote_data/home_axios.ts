@@ -12,6 +12,7 @@ export const getRecommendedAlbums = async () => {
       Authorization: `Bearer ${await AsyncStorage.getItem(LocalDataKeys.accessToken)}`,
     },
   });
+  
   return response.data;
 };
 export const getMyFavoriteTracks = async () => {
