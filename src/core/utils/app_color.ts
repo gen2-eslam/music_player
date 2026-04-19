@@ -7,6 +7,8 @@ abstract class AppColor {
   static readonly lightGray = "#8996B8";
   static readonly lightGrayOpacity = "rgba(137, 150, 184, 0.72)";
   static readonly white = "#FFFFFF";
+  //blue
+  static readonly lightBlue = "#007BFF";
 }
 
 export default AppColor;
