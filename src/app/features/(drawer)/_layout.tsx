@@ -12,6 +12,13 @@ export default function DrawerLayout() {
       <Drawer
         drawerContent={CustomDrawerContent}
         screenOptions={({ navigation }) => ({
+          drawerItemStyle: {
+            margin: 5,
+          },
+          drawerActiveBackgroundColor: AppColor.red,
+          drawerInactiveBackgroundColor: "#f5f5f5",
+          drawerActiveTintColor: "#fff",
+          drawerInactiveTintColor: "#000",
           headerRight(props) {
             return (
               <TouchableOpacity onPress={() => {}}>
@@ -36,8 +43,7 @@ export default function DrawerLayout() {
               />
             </TouchableOpacity>
           ),
-          drawerActiveTintColor: "#000",
-          drawerInactiveTintColor: "#000",
+
           drawerStyle: {
             backgroundColor: "#fff",
             paddingTop: 50,
@@ -48,8 +54,6 @@ export default function DrawerLayout() {
           drawerLabelStyle: {
             fontFamily: AppFontsFamily.regular,
           },
-          drawerActiveBackgroundColor: "#f5f5f5",
-          drawerInactiveBackgroundColor: "#f5f5f5",
         })}
       >
         <Drawer.Screen
@@ -57,6 +61,7 @@ export default function DrawerLayout() {
           options={{
             drawerLabel: "Home",
             headerTitle: "Home",
+
             headerTitleStyle: {
               fontFamily: AppFontsFamily.bold,
               textAlign: "center",
@@ -66,6 +71,22 @@ export default function DrawerLayout() {
               <MaterialIcons name="home" size={24} color={color} />
             ),
             title: "Home",
+          }}
+        />
+        <Drawer.Screen
+          name="favorite_music/my_fav_screen"
+          options={{
+            drawerLabel: "My Fav",
+            headerTitle: "My Fav",
+            headerTitleStyle: {
+              fontFamily: AppFontsFamily.bold,
+              textAlign: "center",
+            },
+
+            drawerIcon: ({ color }) => (
+              <MaterialIcons name="favorite" size={24} color={color} />
+            ),
+            title: "My Fav",
           }}
         />
       </Drawer>
