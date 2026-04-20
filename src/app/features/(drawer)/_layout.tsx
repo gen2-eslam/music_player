@@ -11,7 +11,10 @@ export default function DrawerLayout() {
     <View style={{ flex: 1, backgroundColor: "#fff", padding: 0 }}>
       <Drawer
         drawerContent={CustomDrawerContent}
-        screenOptions={({ navigation }) => ({
+        screenOptions={({ navigation }) => ({ 
+           drawerItemStyle: {
+      marginVertical: 10,
+    },
           headerRight(props) {
             return (
               <TouchableOpacity onPress={() => {}}>
@@ -66,6 +69,23 @@ export default function DrawerLayout() {
               <MaterialIcons name="home" size={24} color={color} />
             ),
             title: "Home",
+        
+          }}
+        />  
+        <Drawer.Screen
+          name="playlist/playlist_screen"
+          options={{
+            drawerLabel: "Playlist",
+            
+            headerTitle: "Playlist",
+            headerTitleStyle: {
+              fontFamily: AppFontsFamily.bold,
+              textAlign: "center",
+            },
+            drawerIcon: ({ color }) => (
+              <MaterialIcons name="library-music" size={24} color={color} />
+            ),
+            title: "Playlist",
           }}
         />
       </Drawer>
