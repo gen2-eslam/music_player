@@ -3,8 +3,9 @@ import AppFontsFamily from "@/core/utils/app_fonts";
 import { MaterialIcons } from "@expo/vector-icons";
 import { DrawerActions } from "@react-navigation/native";
 import { Drawer } from "expo-router/drawer";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import CustomDrawerContent from "../../../core/common_componant/custom_drawer_content";
+import PlayMusicScreen from "../play_music/play_music_screen";
 
 export default function DrawerLayout() {
   return (
@@ -91,18 +92,7 @@ export default function DrawerLayout() {
         />
       </Drawer>
 
-      <View
-        style={{
-          height: 70,
-          backgroundColor: AppColor.red,
-          justifyContent: "center",
-          alignItems: "center",
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-        }}
-      >
-        <Text>music player</Text>
-      </View>
+      <PlayMusicScreen />
     </View>
   );
 }

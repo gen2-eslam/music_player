@@ -1,22 +1,33 @@
-import {
-  ActivityIndicator,
-  Button,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import SmallView from "./componant/small_view";
 import usePlayMusicHooks from "./hooks/play_music_hooks";
-
 export default function PlayMusicScreen() {
+  const [isSmall, setIsSmall] = useState(true);
   const { player, status, source } = usePlayMusicHooks();
 
   return (
-    <View style={styles.container}>
-      <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 10 }}>
-        Now Playing
-      </Text>
+    <View style={isSmall ? styles.smallContainer : styles.container}>
+      {isSmall ? (
+        <TouchableOpacity onPress={() => setIsSmall(!isSmall)}>
+          <SmallView />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity onPress={() => setIsSmall(!isSmall)}>
+          <Text
+            style={{
+              fontSize: 24,
+              fontWeight: "bold",
+              marginBottom: 10,
+              textAlign: "center",
+            }}
+          >
+            Now Playing
+          </Text>
+        </TouchableOpacity>
+      )}
 
-      <Text style={{ textAlign: "center", color: "#666", fontSize: 12 }}>
+      {/* <Text style={{ textAlign: "center", color: "#666", fontSize: 12 }}>
         {source?.uri}
       </Text>
 
@@ -45,14 +56,29 @@ export default function PlayMusicScreen() {
             player.play();
           }}
         />
-      </View>
+      </View> */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  smallContainer: {
+    height: "10%",
+    width: "100%",
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: -2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
   container: {
-    flex: 1,
+    height: "100%",
     backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
