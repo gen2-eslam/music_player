@@ -6,13 +6,13 @@ import {
   Image,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
-import { AlbumModel } from "../data/model/play_list_model";
 
 const { width } = Dimensions.get("window");
 
-export const HorizontalFlatList = ({ data }: { data: AlbumModel[] }) => {
+export const HorizontalFlatList = ({ data, onSongPress }: any) => {
   return (
     <FlatList
       data={data}
@@ -26,12 +26,17 @@ export const HorizontalFlatList = ({ data }: { data: AlbumModel[] }) => {
         </View>
       }
       renderItem={({ item }) => (
-        <View style={styles.item}>
-          <Image source={{ uri: item.cover_url }} style={styles.image} />
-          <Text style={styles.flatListTitle}>{item.title}</Text>
 
-          <Text style={styles.flatListSubTitle}>{item.artist}</Text>
-        </View>
+        <TouchableOpacity 
+          activeOpacity={0.8}
+          onPress={() => onSongPress && onSongPress(item)}
+        >
+          <View style={styles.item}>
+            <Image source={{ uri: item.cover_url }} style={styles.image} />
+            <Text style={styles.flatListTitle} numberOfLines={1}>{item.title}</Text>
+            <Text style={styles.flatListSubTitle} numberOfLines={1}>{item.artist}</Text>
+          </View>
+        </TouchableOpacity>
       )}
     />
   );
@@ -41,7 +46,7 @@ const styles = StyleSheet.create({
   flatListTitle: {
     fontSize: 16,
     fontFamily: AppFontsFamily.medium,
-    width: "70%",
+    width: 190,
     color: AppColor.dark,
     textAlign: "center",
   },
@@ -50,11 +55,10 @@ const styles = StyleSheet.create({
     fontFamily: AppFontsFamily.medium,
     color: AppColor.lightGray,
     textAlign: "center",
-    width: "70%",
+    width: 190,
   },
   item: {
     alignItems: "center",
-    // justifyContent: "center",
   },
   flatListEmpty: {
     width: width - 40,
@@ -68,5 +72,6 @@ const styles = StyleSheet.create({
     width: 190,
     height: 190,
     borderRadius: 10,
+    marginBottom: 5,
   },
 });
