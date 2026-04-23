@@ -1,18 +1,22 @@
+import { setCurrentMusic } from "@/core/redux/music_reducer";
 import AppColor from "@/core/utils/app_color";
 import AppFontsFamily from "@/core/utils/app_fonts";
 import {
   Dimensions,
   FlatList,
   Image,
+  Pressable,
   StyleSheet,
   Text,
   View,
 } from "react-native";
+import { useDispatch } from "react-redux";
 import { AlbumModel } from "../data/model/play_list_model";
 
 const { width } = Dimensions.get("window");
 
 export const HorizontalFlatList = ({ data }: { data: AlbumModel[] }) => {
+  const dispatch = useDispatch();
   return (
     <FlatList
       data={data}
@@ -26,12 +30,17 @@ export const HorizontalFlatList = ({ data }: { data: AlbumModel[] }) => {
         </View>
       }
       renderItem={({ item }) => (
-        <View style={styles.item}>
+        <Pressable
+          style={styles.item}
+          onPress={() => {
+            dispatch(setCurrentMusic(item));
+          }}
+        >
           <Image source={{ uri: item.cover_url }} style={styles.image} />
           <Text style={styles.flatListTitle}>{item.title}</Text>
 
           <Text style={styles.flatListSubTitle}>{item.artist}</Text>
-        </View>
+        </Pressable>
       )}
     />
   );
