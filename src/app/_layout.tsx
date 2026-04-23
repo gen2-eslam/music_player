@@ -14,6 +14,7 @@ import {
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { Provider } from "react-redux";
+import { PlayMusicProvider } from "./features/play_music/context/play_music_context";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -29,19 +30,23 @@ export default function RootLayout() {
   });
   return (
     <Provider store={store}>
-      <Stack
-        initialRouteName={(AppRoutes.onBoarding as string).replace("/", "")}
-        screenOptions={{ headerShown: false }}
-      >
-        <Stack.Screen
-          name={(AppRoutes.onBoarding as string).replace("/", "")}
-        />
-        <Stack.Screen name={(AppRoutes.login as string).replace("/", "")} />
-        <Stack.Screen
-          name={(AppRoutes.drawerLayout as string).replace("/", "")}
-        />
-        <Stack.Screen name={(AppRoutes.playMusic as string).replace("/", "")} />
-      </Stack>
+      <PlayMusicProvider>
+        <Stack
+          initialRouteName={(AppRoutes.onBoarding as string).replace("/", "")}
+          screenOptions={{ headerShown: false }}
+        >
+          <Stack.Screen
+            name={(AppRoutes.onBoarding as string).replace("/", "")}
+          />
+          <Stack.Screen name={(AppRoutes.login as string).replace("/", "")} />
+          <Stack.Screen
+            name={(AppRoutes.drawerLayout as string).replace("/", "")}
+          />
+          <Stack.Screen
+            name={(AppRoutes.playMusic as string).replace("/", "")}
+          />
+        </Stack>
+      </PlayMusicProvider>
     </Provider>
   );
 }

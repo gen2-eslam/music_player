@@ -22,6 +22,8 @@ type PlayerStatus = ReturnType<typeof useAudioPlayerStatus>;
 interface PlayMusicContextType {
   player: AudioPlayer;
   status: PlayerStatus;
+  isSmall: boolean;
+  setIsSmall: (isSmall: boolean) => void;
   source: AudioSource | null;
   currentTime: number;
   togglePlayPause: () => void;
@@ -41,7 +43,7 @@ export const PlayMusicProvider: React.FC<{ children: React.ReactNode }> = ({
   );
   const [token, setToken] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState<number>(0);
-
+  const [isSmall, setIsSmall] = useState<boolean>(true);
   const fetchToken = async () => {
     const storedToken = await AsyncStorage.getItem(LocalDataKeys.accessToken);
     setToken(storedToken);
@@ -111,6 +113,8 @@ export const PlayMusicProvider: React.FC<{ children: React.ReactNode }> = ({
     togglePlayPause,
     seekTo,
     replaceSource,
+    isSmall,
+    setIsSmall,
   };
 
   return (

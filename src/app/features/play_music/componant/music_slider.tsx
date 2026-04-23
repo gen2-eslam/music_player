@@ -11,12 +11,14 @@ export const MusicSlider = () => {
       value={currentTime}
       minimumValue={0}
       maximumValue={status.duration}
+      step={1}
       onValueChange={(value: number) => {
         seekTo(value);
       }}
       minimumTrackTintColor={AppColor.lightGray}
       maximumTrackTintColor={AppColor.lightGray}
       thumbTintColor={AppColor.dark}
+
     />
   );
 };
@@ -24,5 +26,7 @@ export const MusicSlider = () => {
 const styles = StyleSheet.create({
   slider: {
     width: "100%",
+    // height: 5,
+    padding: 0,
   },
 });

@@ -1,41 +1,33 @@
-import { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import FullView from "./componant/full_view";
 import SmallView from "./componant/small_view";
-import { PlayMusicProvider } from "./context/play_music_context";
+import { usePlayMusic } from "./context/play_music_context";
+const { height } = Dimensions.get("window");
 
 export default function PlayMusicScreen() {
-  const [isSmall, setIsSmall] = useState(true);
+  const { isSmall, setIsSmall } = usePlayMusic();
 
   return (
-    <PlayMusicProvider>
-      <View style={isSmall ? styles.smallContainer : styles.container}>
-        {isSmall ? (
-          <TouchableOpacity onPress={() => setIsSmall(!isSmall)}>
-            <SmallView />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity onPress={() => setIsSmall(!isSmall)}>
-            <Text
-              style={{
-                fontSize: 24,
-                fontWeight: "bold",
-                marginBottom: 10,
-                textAlign: "center",
-              }}
-            >
-              Now Playing
-            </Text>
-          </TouchableOpacity>
-        )}
-      </View>
-    </PlayMusicProvider>
+    <SafeAreaView
+      edges={["bottom", "left", "right"]}
+      style={isSmall ? styles.smallContainer : styles.container}
+    >
+      {isSmall ? (
+        <TouchableOpacity onPress={() => setIsSmall(!isSmall)}>
+          <SmallView />
+        </TouchableOpacity>
+      ) : (
+        <FullView />
+      )}
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   smallContainer: {
-    height: "15%",
     width: "100%",
+    height: height * 0.1,
     backgroundColor: "#fff",
     // borderTopLeftRadius: 20,
     // borderTopRightRadius: 20,
@@ -49,7 +41,10 @@ const styles = StyleSheet.create({
     // elevation: 5,
   },
   container: {
-    height: "100%",
+    flex: 1,
+    position: "absolute",
+    width: "100%",
+    height: height,
     backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
