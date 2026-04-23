@@ -4,22 +4,22 @@ import { StyleSheet } from "react-native";
 import usePlayMusicHooks from "../hooks/play_music_hooks";
 
 export const MusicSlider = () => {
-  const { seekTo, status } = usePlayMusicHooks();
+  const { seekTo, currentTime, status } = usePlayMusicHooks();
   return (
     <Slider
       style={styles.slider}
-      value={status.currentTime}
+      value={currentTime}
       minimumValue={0}
       maximumValue={status.duration}
-        onValueChange={(value) => {
-          seekTo(value);
-        }}
-        minimumTrackTintColor={AppColor.lightGray}
-        maximumTrackTintColor={AppColor.lightGray}
-        thumbTintColor={AppColor.dark}
-      />
-    );
-  };
+      onValueChange={(value: number) => {
+        seekTo(value);
+      }}
+      minimumTrackTintColor={AppColor.lightGray}
+      maximumTrackTintColor={AppColor.lightGray}
+      thumbTintColor={AppColor.dark}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   slider: {

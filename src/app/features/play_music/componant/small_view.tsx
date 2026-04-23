@@ -1,13 +1,15 @@
 import { RootState } from "@/core/redux/store";
 import AppColor from "@/core/utils/app_color";
 import AppFontsFamily from "@/core/utils/app_fonts";
-import { Image, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
 import usePlayMusicHooks from "../hooks/play_music_hooks";
 import { MusicSlider } from "./music_slider";
+import { PauseMusicIcon } from "./pause_music";
+import { PlayMusicIcon } from "./play_music";
 
 const SmallView = () => {
-  const { seekTo, status } = usePlayMusicHooks();
   const { current_music } = useSelector((state: RootState) => state.music);
   return (
     <View style={styles.container}>
@@ -18,7 +20,7 @@ const SmallView = () => {
           style={styles.image}
         />
         <TextContainer />
-        {/* <PlayPauseButton /> */}
+        <PlayPauseButton />
       </View>
     </View>
   );
@@ -26,11 +28,24 @@ const SmallView = () => {
   function TextContainer() {
     return (
       <View style={styles.textContainer}>
-        <Text style={styles.title}>{current_music?.title}</Text>
-        <Text style={styles.artist}>{current_music?.artist}</Text>
+        <Text style={styles.title} numberOfLines={1}>
+          {current_music?.title}
+        </Text>
+        <Text style={styles.artist} numberOfLines={1}>
+          {current_music?.artist}
+        </Text>
       </View>
     );
   }
+};
+
+const PlayPauseButton = () => {
+  const { status, togglePlayPause } = usePlayMusicHooks();
+  return (
+    <TouchableOpacity onPress={() => togglePlayPause()}>
+      {status.playing ? <PauseMusicIcon /> : <PlayMusicIcon />}
+    </TouchableOpacity>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -55,6 +70,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     gap: 10,
+
     flexDirection: "column",
     justifyContent: "flex-start",
   },
