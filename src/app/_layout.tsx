@@ -45,6 +45,7 @@ export default function RootLayout() {
           <Stack.Screen
             name={(AppRoutes.playMusic as string).replace("/", "")}
           />
+          <Stack.Screen name={(AppRoutes.search as string).replace("/", "")} />
         </Stack>
       </MusicPlayerManager>
     </Provider>

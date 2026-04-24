@@ -1,4 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { LocalDataKeys } from "../local_data_base/local_data_keys";
 import { EndPoint } from "./end_point";
 import { refreshToken } from "./refresh_token";
 const axiosInstance = axios.create({
@@ -8,10 +10,21 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response?.status === 401) {
-      await refreshToken();
+    const originalRequest = error.config;
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      try {
+        await refreshToken();
+        const newToken = await AsyncStorage.getItem(LocalDataKeys.accessToken);
+        if (newToken) {
+          originalRequest.headers.Authorization = `Bearer ${newToken}`;
+        }
+        return axiosInstance(originalRequest);
+      } catch (refreshError) {
+        return Promise.reject(refreshError);
+      }
     }
-    // return Promise.reject(error);
+    return Promise.reject(error);
   },
 );
 

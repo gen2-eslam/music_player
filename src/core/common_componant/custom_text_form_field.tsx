@@ -23,7 +23,7 @@ export const CustomTextFormField = ({
   error,
   keyboardType,
 }: {
-  title: string;
+  title?: string;
   perfixIcon: React.ReactNode;
   placeholder: string;
   isPassword?: boolean;
@@ -36,7 +36,7 @@ export const CustomTextFormField = ({
   const [showPassword, setShowPassword] = useState(false);
   return (
     <View style={styleSheet.container}>
-      <Text style={styleSheet.title}>{title}</Text>
+      {title && <Text style={styleSheet.title}>{title}</Text>}
       <View style={[styleSheet.innercontainer]}>
         <View style={styleSheet.icon}>{perfixIcon}</View>
         <TextInput

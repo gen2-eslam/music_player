@@ -108,10 +108,11 @@ export const useRegister = () => {
         })
         .catch((error) => {
           console.log(error);
+          const data = error.response?.data || {};
           setError({
-            emailError: error.response.data.email,
-            usernameError: error.response.data.username,
-            passwordError: error.response.data.password,
+            emailError: data.email || "",
+            usernameError: data.username || "",
+            passwordError: data.password || "",
             showError: true,
           });
 

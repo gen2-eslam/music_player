@@ -66,8 +66,10 @@ export const useLogin = () => {
           router.replace(AppRoutes.drawerLayout);
         })
         .catch((error) => {
+          const errorMessage =
+            error.response?.data?.["detail"] || error.message || "Login failed";
           setError({
-            message: error.response.data["detail"],
+            message: errorMessage,
             showError: true,
           });
 
