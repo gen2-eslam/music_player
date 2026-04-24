@@ -44,16 +44,17 @@ export default function FullView() {
 }
 
 const MusicPlayerButton = () => {
-  const { status, togglePlayPause } = usePlayMusicHooks();
+  const { status, togglePlayPause, nextMusic, previousMusic } =
+    usePlayMusicHooks();
   return (
     <View style={styles.musicPlayerButton}>
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity onPress={() => previousMusic()}>
         <BackMusicIcon />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => togglePlayPause()}>
         {status.playing ? <PauseMusicIcon /> : <PlayMusicIcon />}
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity onPress={() => nextMusic()}>
         <NextMusicIcon />
       </TouchableOpacity>
     </View>

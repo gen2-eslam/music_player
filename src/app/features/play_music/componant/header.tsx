@@ -1,10 +1,10 @@
 import { ArrowBackIcon } from "@/core/common_componant/arrow_back_icon";
 import AppColor from "@/core/utils/app_color";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { usePlayMusic } from "../context/play_music_context";
+import usePlayMusicHooks from "../hooks/play_music_hooks";
 
 const Header = () => {
-  const { isSmall, setIsSmall } = usePlayMusic();
+  const { isSmall, setIsSmall } = usePlayMusicHooks();
   return (
     <View style={styles.container}>
       <TouchableOpacity

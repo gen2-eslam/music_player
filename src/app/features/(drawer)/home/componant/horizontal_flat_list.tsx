@@ -1,4 +1,4 @@
-import { setCurrentMusic } from "@/core/redux/music_reducer";
+import { setCurrentMusicIndex } from "@/core/redux/music_reducer";
 import AppColor from "@/core/utils/app_color";
 import AppFontsFamily from "@/core/utils/app_fonts";
 import {
@@ -33,7 +33,12 @@ export const HorizontalFlatList = ({ data }: { data: AlbumModel[] }) => {
         <Pressable
           style={styles.item}
           onPress={() => {
-            dispatch(setCurrentMusic(item));
+            dispatch(
+              setCurrentMusicIndex({
+                index: data.indexOf(item),
+                list_music: data,
+              }),
+            );
           }}
         >
           <Image source={{ uri: item.cover_url }} style={styles.image} />
