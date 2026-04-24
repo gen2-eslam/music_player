@@ -2,11 +2,11 @@ import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FullView from "./componant/full_view";
 import SmallView from "./componant/small_view";
-import { usePlayMusic } from "./context/play_music_context";
+import usePlayMusicHooks from "./hooks/play_music_hooks";
 const { height } = Dimensions.get("window");
 
 export default function PlayMusicScreen() {
-  const { isSmall, setIsSmall } = usePlayMusic();
+  const { isSmall, setIsSmall } = usePlayMusicHooks();
 
   return (
     <SafeAreaView
