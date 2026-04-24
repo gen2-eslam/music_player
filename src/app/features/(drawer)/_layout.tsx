@@ -1,7 +1,9 @@
 import AppColor from "@/core/utils/app_color";
 import AppFontsFamily from "@/core/utils/app_fonts";
+import AppRoutes from "@/core/utils/app_routes";
 import { MaterialIcons } from "@expo/vector-icons";
 import { DrawerActions } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import { Dimensions, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -11,6 +13,7 @@ import PlayMusicScreen from "../play_music/play_music_screen";
 const { height } = Dimensions.get("window");
 
 export default function DrawerLayout() {
+  const router = useRouter();
   return (
     <SafeAreaView
       edges={["bottom", "left", "right"]}
@@ -29,7 +32,11 @@ export default function DrawerLayout() {
             drawerInactiveTintColor: "#000",
             headerRight(props) {
               return (
-                <TouchableOpacity onPress={() => {}}>
+                <TouchableOpacity
+                  onPress={() => {
+                    router.push(AppRoutes.search);
+                  }}
+                >
                   <MaterialIcons
                     name="search"
                     size={24}
