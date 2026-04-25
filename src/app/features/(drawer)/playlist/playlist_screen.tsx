@@ -1,15 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from "react";
-import {
-  FlatList,
-  Modal,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View
-} from "react-native";
+import { FlatList, Modal, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import usePlayMusicHooks from "../../play_music/hooks/play_music_hooks";
 
@@ -22,7 +13,7 @@ export default function PlaylistScreen() {
  
   const { replaceSource } = usePlayMusicHooks();
 
-  // Hardcoded tracks to ensure the list displays correctly
+
   const apiTracks = [
     { id: '1', title: 'Midnight City', artist: 'M83' },
     { id: '2', title: 'Starboy', artist: 'The Weeknd' },
