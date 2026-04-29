@@ -1,18 +1,22 @@
+import { setCurrentMusicIndex } from "@/core/redux/music_reducer";
 import AppColor from "@/core/utils/app_color";
 import AppFontsFamily from "@/core/utils/app_fonts";
 import {
   Dimensions,
   FlatList,
   Image,
+  Pressable,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { AlbumModel } from "../data/model/play_list_model";
 
 const { width } = Dimensions.get("window");
 
-export const HorizontalFlatList = ({ data, onSongPress }: any) => {
+export const HorizontalFlatList = ({ data }: { data: AlbumModel[] }) => {
+  const dispatch = useDispatch();
   return (
     <FlatList
       data={data}
@@ -26,17 +30,22 @@ export const HorizontalFlatList = ({ data, onSongPress }: any) => {
         </View>
       }
       renderItem={({ item }) => (
-
-        <TouchableOpacity 
-          activeOpacity={0.8}
-          onPress={() => onSongPress && onSongPress(item)}
+        <Pressable
+          style={styles.item}
+          onPress={() => {
+            dispatch(
+              setCurrentMusicIndex({
+                index: data.indexOf(item),
+                list_music: data,
+              }),
+            );
+          }}
         >
-          <View style={styles.item}>
-            <Image source={{ uri: item.cover_url }} style={styles.image} />
-            <Text style={styles.flatListTitle} numberOfLines={1}>{item.title}</Text>
-            <Text style={styles.flatListSubTitle} numberOfLines={1}>{item.artist}</Text>
-          </View>
-        </TouchableOpacity>
+          <Image source={{ uri: item.cover_url }} style={styles.image} />
+          <Text style={styles.flatListTitle}>{item.title}</Text>
+
+          <Text style={styles.flatListSubTitle}>{item.artist}</Text>
+        </Pressable>
       )}
     />
   );
@@ -46,7 +55,7 @@ const styles = StyleSheet.create({
   flatListTitle: {
     fontSize: 16,
     fontFamily: AppFontsFamily.medium,
-    width: 190,
+    width: "70%",
     color: AppColor.dark,
     textAlign: "center",
   },
@@ -55,10 +64,11 @@ const styles = StyleSheet.create({
     fontFamily: AppFontsFamily.medium,
     color: AppColor.lightGray,
     textAlign: "center",
-    width: 190,
+    width: "70%",
   },
   item: {
     alignItems: "center",
+    // justifyContent: "center",
   },
   flatListEmpty: {
     width: width - 40,
@@ -72,6 +82,5 @@ const styles = StyleSheet.create({
     width: 190,
     height: 190,
     borderRadius: 10,
-    marginBottom: 5,
   },
 });
