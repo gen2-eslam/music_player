@@ -15,8 +15,12 @@ export abstract class EndPoint {
   static readonly liked = "/liked/";
 
   //playlist
-  static readonly playlist = "/playlist/";
-  static readonly playlist_id = (id: string) => `/playlist/${id}/`;
+  static readonly playlist = "/playlists/";
+  static readonly playlist_id_add_track = (id: string) =>
+    `/playlists/${id}/add_track/`;
+  static readonly playlist_id_remove_track = (id: string) =>
+    `/playlists/${id}/remove_track/`;
+  static readonly playlist_id = (id: string) => `/playlists/${id}/`;
 
   //recommendation
   static readonly recommendation = "/recommendations/";

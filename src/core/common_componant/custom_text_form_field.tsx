@@ -24,7 +24,7 @@ export const CustomTextFormField = ({
   keyboardType,
 }: {
   title?: string;
-  perfixIcon: React.ReactNode;
+  perfixIcon?: React.ReactNode;
   placeholder: string;
   isPassword?: boolean;
   value: string;

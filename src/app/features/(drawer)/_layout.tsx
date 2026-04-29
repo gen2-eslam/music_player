@@ -106,6 +106,22 @@ export default function DrawerLayout() {
               title: "My Fav",
             }}
           />
+          <Drawer.Screen
+            name="playlist/playlist_screen"
+            options={{
+              drawerLabel: "My Playlist",
+              headerTitle: "My Playlist",
+              headerTitleStyle: {
+                fontFamily: AppFontsFamily.bold,
+                textAlign: "center",
+              },
+
+              drawerIcon: ({ color }) => (
+                <MaterialIcons name="playlist-play" size={24} color={color} />
+              ),
+              title: "My Playlist",
+            }}
+          />
         </Drawer>
       </View>
 
