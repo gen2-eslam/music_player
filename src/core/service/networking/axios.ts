@@ -43,41 +43,62 @@ const axiosGetData = async <T>({
 const axiosPostData = async <T>({
   url,
   data,
+  headers,
   params,
 }: {
   url: string;
   data?: any;
+  headers?: any;
   params?: any;
 }) => {
-  return await axiosInstance.post<T>(url, data, { params });
+  return await axiosInstance.post<T>(url, data, { headers, params });
 };
 
 const axiosPutData = async <T>({
   url,
   data,
   params,
+  headers,
 }: {
   url: string;
   data?: any;
   params?: any;
+  headers?: any;
 }) => {
-  return await axiosInstance.put<T>(url, data, { params });
+  return await axiosInstance.put<T>(url, data, { params, headers });
 };
 
 const axiosDeleteData = async <T>({
   url,
   params,
+  headers,
 }: {
   url: string;
   params?: any;
+  headers?: any;
 }) => {
-  return await axiosInstance.delete<T>(url, { params });
+  return await axiosInstance.delete<T>(url, { params, headers });
+};
+
+const axiosPatchData = async <T>({
+  url,
+  data,
+  params,
+  headers,
+}: {
+  url: string;
+  data?: any;
+  params?: any;
+  headers?: any;
+}) => {
+  return await axiosInstance.patch<T>(url, data, { params, headers });
 };
 
 export {
   axiosDeleteData,
   axiosGetData,
   axiosInstance,
+  axiosPatchData,
   axiosPostData,
   axiosPutData,
 };

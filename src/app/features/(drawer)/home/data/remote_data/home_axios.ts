@@ -15,13 +15,3 @@ export const getRecommendedAlbums = async () => {
 
   return response?.data || [];
 };
-export const getMyFavoriteTracks = async () => {
-  const response = await axiosGetData<AlbumModel[]>({
-    url: EndPoint.liked,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${await AsyncStorage.getItem(LocalDataKeys.accessToken)}`,
-    },
-  });
-  return response?.data || [];
-};

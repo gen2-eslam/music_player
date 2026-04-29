@@ -6,7 +6,7 @@ import { FlatListErrorView } from "./flat_list_error_view";
 import { FlatListLoadingView } from "./flat_list_loading_view";
 import { HorizontalFlatList } from "./horizontal_flat_list";
 
-export const RecomendedForYouComponant = ({ onSongPress }: { onSongPress?: (song: any) => void }) => {
+export const RecomendedForYouComponant = () => {
   const { data, loading, error, getRecommended } = useRecommended();
   if (loading) {
     return <FlatListLoadingView />;
@@ -17,11 +17,7 @@ export const RecomendedForYouComponant = ({ onSongPress }: { onSongPress?: (song
   return (
     <View style={{ gap: 10 }}>
       <Text style={styles.text}>Recommended for you</Text>
-        <HorizontalFlatList 
-        data={data} 
-        onSongPress={onSongPress}   
-      //<HorizontalFlatList data={data}
-       />
+      <HorizontalFlatList data={data} />
     </View>
   );
 };
