@@ -1,90 +1,142 @@
 # Expo Music Player
 
-## Project Description
+A sleek, cross‑platform music player built with **Expo**, **React Native**, and **TypeScript**. It provides a rich UI, supports background playback, playlists, and integrates with popular music streaming APIs.
 
-A cross‑platform music player built with **Expo** and **React Native**. It streams audio from popular services, supports playlists, background playback, and a sleek UI that works on iOS, Android, and web.
+---
 
-## Features
+## 📖 Project Description
 
-- 🎧 Play, pause, skip, and seek tracks.
-- 📂 Create, edit, and reorder playlists.
-- 🌙 Light & dark theme with automatic system detection.
-- 📱 Responsive layout for phones, tablets, and browsers.
-- 🔊 Background audio playback with lock‑screen controls.
-- 📦 Offline caching of recent tracks.
-- ✅ Type‑safe codebase using **TypeScript**.
-- 🧭 Navigation powered by **expo-router** (or **react‑navigation**).
-- 🛠️ Easily configurable via environment variables.
+`expo-music-player` is a modern mobile application that lets users browse, play, and manage their music library. It leverages Expo's managed workflow for rapid development and easy deployment to iOS, Android, and web.
 
-## Tech Stack
+Key goals:
+- **Fast & responsive UI** with smooth animations.
+- **Background audio** support for uninterrupted listening.
+- **Playlist management** (create, edit, reorder).
+- **Theming** with dark/light mode.
+- **Scalable architecture** using React hooks and context.
+
+---
+
+## ✨ Features
+
+- 🎧 Play / pause / seek with custom controls.
+- 📂 Browse songs from local assets or remote API.
+- 📄 Create and edit playlists.
+- 🎨 Light & dark themes (auto‑detect system setting).
+- 📱 Responsive design for phones & tablets.
+- 🔄 Background playback using `expo-av`.
+- 📱 Push notifications for track changes.
+- 📦 Easy to extend with additional services (Spotify, Apple Music, etc.).
+
+---
+
+## 🛠️ Tech Stack
 
 | Layer | Technology |
 |-------|------------|
-| Platform | Expo SDK 50, React Native 0.74 |
-| Language | TypeScript (strict mode) |
-| State Management | React Context + custom hooks (future Redux optional) |
-| UI Library | React Native Paper, styled‑components |
-| Audio Engine | Expo AV (`Audio.Sound`) |
-| Build & Deploy | EAS Build, Expo Go |
-| Testing | Jest, React Native Testing Library |
+| **Framework** | Expo (SDK 53) |
+| **Language** | TypeScript |
+| **UI** | React Native, React Navigation, styled‑components |
+| **Audio** | `expo-av` |
+| **State Management** | React Context + hooks |
+| **Routing** | `@react-navigation/native` |
+| **Theming** | `styled-components` with ThemeProvider |
+| **Testing** | Jest + React Native Testing Library |
+| **CI/CD** | Expo Application Services (EAS) |
 
-## Installation
+---
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your‑org/expo-music-player.git
-   cd expo-music-player
-   ```
-2. **Install dependencies**
-   ```bash
-   npm ci   # installs exact versions from package‑lock.json
-   ```
-3. **Configure environment** (optional)
-   - Copy `.env.example` to `.env` and adjust values such as `API_BASE_URL`.
-4. **Run the app**
-   ```bash
-   npx expo start
-   ```
-   - Scan the QR code with the Expo Go app (iOS/Android) or press `w` to open in a web browser.
+## 📦 Installation
 
-## Usage
+### Prerequisites
+- **Node.js** ≥ 18
+- **Yarn** or **npm** (npm is used in the repo)
+- **Expo CLI** (`npm i -g expo-cli`)
+- **Git**
 
-### Development
+### Steps
+```bash
+# Clone the repository
+git clone https://github.com/your‑username/expo-music-player.git
+cd expo-music-player
 
-- **Hot reload**: Save a file and the app updates instantly.
-- **Debugging**: Press `d` in the Expo CLI to open the DevTools console.
-- **Testing**:
-  ```bash
-  npm test          # runs Jest unit tests
-  npm run test:e2e  # runs Expo E2E tests with playwright
-  ```
+# Install dependencies
+npm install
 
-### Core API (login hook example)
-```ts
-import { useLogin } from './app/features/login/hooks/login_hooks';
+# Install iOS/Android native dependencies (handled by Expo)
+expo install
 
-function LoginScreen() {
-  const { login, loading, error } = useLogin();
-
-  const handleSubmit = async (email: string, password: string) => {
-    await login({ email, password });
-  };
-
-  return (
-    // UI omitted for brevity
-  );
-}
+# Start the development server
+expo start
 ```
-- `useLogin` returns a `login` function, a `loading` flag, and an optional `error` string.
-- Errors are thrown for network failures or invalid credentials and can be displayed with a toast.
 
-## Contributing
+The command opens Expo DevTools in your browser. You can run the app on:
+- **iOS simulator** (`i`)
+- **Android emulator** (`a`)
+- **Web browser** (`w`)
 
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feat/awesome-feature`).
-3. Follow the existing lint rules (`npm run lint`).
-4. Submit a Pull Request with a clear description and screenshots if UI changes are involved.
+---
 
-## License
+## 🚀 Usage
 
-MIT License – see the [LICENSE](LICENSE) file for details.
+### Running the App
+```bash
+expo start
+```
+Press the desired platform key (i, a, w) to launch.
+
+### Adding a New Song
+1. Place the audio file in `assets/music/`.
+2. Update `src/app/constants/songs.ts` with the new entry:
+```ts
+export const songs = [
+  ...
+  {
+    id: 'new-song',
+    title: 'My New Track',
+    artist: 'Artist Name',
+    uri: require('../../assets/music/my_new_track.mp3'),
+  },
+];
+```
+3. Restart the Metro bundler.
+
+### Creating a Playlist
+```ts
+import { usePlaylist } from '@/hooks/usePlaylist';
+
+const { createPlaylist, addToPlaylist } = usePlaylist();
+
+const myPlaylist = createPlaylist('Road Trip');
+addToPlaylist(myPlaylist.id, 'song-id-123');
+```
+
+### Theming
+The app automatically follows the system theme. To force a mode, edit `src/app/theme/theme.ts`:
+```ts
+export const defaultTheme = {
+  colorScheme: ColorScheme.dark, // or .light
+};
+```
+
+---
+
+## 🧪 Testing
+```bash
+npm test
+```
+Runs Jest with coverage reports located in `coverage/`.
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** – see the `LICENSE` file for details.
+
+---
+
+## 🙏 Acknowledgements
+- **Expo** for the awesome managed workflow.
+- **react-native-sound** and **expo-av** for audio handling.
+- **styled-components** for elegant theming.
+- Community contributors for bug reports and feature ideas.
