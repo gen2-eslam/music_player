@@ -102,7 +102,8 @@ export const useRegister = () => {
               showSuccess: true,
             });
             setTimeout(() => {
-              router.replace(AppRoutes.login);
+              router.dismissAll();
+              router.push(AppRoutes.login);
             }, 2000);
           }
         })

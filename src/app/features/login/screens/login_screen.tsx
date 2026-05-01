@@ -6,9 +6,14 @@ import AppFontsFamily from "@/core/utils/app_fonts";
 import AppRoutes from "@/core/utils/app_routes";
 import { LockIcon } from "@/core/utils/icons/lock_icon";
 import { PersonIcon } from "@/core/utils/icons/person_icon";
-import { Link } from "expo-router";
+import { router } from "expo-router";
 
-import { ActivityIndicator, StyleSheet, Text } from "react-native";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import { Divider, Snackbar } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLogin } from "../hooks/login_hooks";
@@ -54,20 +59,20 @@ export default function LoginScreen() {
         onChangeText={(text) => setPassword(text)}
         error={passwordValidate}
       />
-  
+
       <Divider style={{ height: 20 }} />
       {loading ? (
         <ActivityIndicator size="large" color={AppColor.red} />
       ) : (
-        <RedButtonWithArrow onPress={login} />
+        <RedButtonWithArrow onPress={() => login()} />
       )}
 
-      <Text style={styleSheet.signUpText}>
-        Don't have an account?{" "}
-        <Link href={AppRoutes.register} asChild>
+      <TouchableOpacity onPress={() => router.push(AppRoutes.register)}>
+        <Text style={styleSheet.signUpText}>
+          Don't have an account?{" "}
           <Text style={styleSheet.signUpText}>Sign Up</Text>
-        </Link>
-      </Text>
+        </Text>
+      </TouchableOpacity>
 
       <Snackbar
         visible={error.showError}
