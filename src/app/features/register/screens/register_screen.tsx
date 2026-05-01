@@ -3,12 +3,16 @@ import { CustomTextFormField } from "@/core/common_componant/custom_text_form_fi
 import { RedButtonWithArrow } from "@/core/common_componant/red_button_with_arrow";
 import AppColor from "@/core/utils/app_color";
 import AppFontsFamily from "@/core/utils/app_fonts";
-import AppRoutes from "@/core/utils/app_routes";
 import { LockIcon } from "@/core/utils/icons/lock_icon";
 import { PersonIcon } from "@/core/utils/icons/person_icon";
-import { Link } from "expo-router";
+import { router } from "expo-router";
 
-import { ActivityIndicator, StyleSheet, Text } from "react-native";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import { Divider, Snackbar } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRegister } from "../hooks/register_hook";
@@ -86,14 +90,12 @@ export default function RegisterScreen() {
       ) : (
         <RedButtonWithArrow onPress={register} />
       )}
-
-      <Text style={styleSheet.signUpText}>
-        Already have an account?{" "}
-        <Link href={AppRoutes.login} asChild>
-          <Text style={styleSheet.signUpText}>Login</Text>
-        </Link>
-      </Text>
-
+      <TouchableOpacity onPress={() => router.back()}>
+        <Text style={styleSheet.signUpText}>
+          Already have an account?{" "}
+          <Text style={styleSheet.signUpText}> Login</Text>
+        </Text>
+      </TouchableOpacity>
       <Snackbar
         visible={error.showError}
         wrapperStyle={{

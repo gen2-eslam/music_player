@@ -63,7 +63,9 @@ export const useLogin = () => {
             response.data.refresh,
           );
           setLoading(false);
-          router.replace(AppRoutes.drawerLayout);
+          router.dismissAll();
+
+          router.push(AppRoutes.drawerLayout);
         })
         .catch((error) => {
           const errorMessage =
